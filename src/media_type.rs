@@ -17,6 +17,7 @@ use {SdpBandwidth, SdpConnection, SdpLine, SdpType};
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpMediaLine {
     pub media: SdpMediaValue,
@@ -42,6 +43,7 @@ impl fmt::Display for SdpMediaLine {
 
 #[derive(Debug, PartialEq, Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 pub enum SdpMediaValue {
     Audio,
     Video,
@@ -61,6 +63,7 @@ impl fmt::Display for SdpMediaValue {
 
 #[derive(Debug, PartialEq, Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 pub enum SdpProtocolValue {
     RtpAvp,          /* RTP/AVP [RFC4566] */
     RtpAvpf,         /* RTP/AVPF [RFC4585] */
@@ -96,6 +99,7 @@ impl fmt::Display for SdpProtocolValue {
 
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub enum SdpFormatList {
     Integers(Vec<u32>),
@@ -123,6 +127,7 @@ impl fmt::Display for SdpFormatList {
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpMedia {
     media: SdpMediaLine,

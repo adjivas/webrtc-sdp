@@ -7,10 +7,10 @@
 
 #[macro_use]
 extern crate log;
-#[cfg(feature = "serialize")]
+#[cfg(any(feature = "serialize", feature = "deserialize"))]
 #[macro_use]
 extern crate serde_derive;
-#[cfg(feature = "serialize")]
+#[cfg(any(feature = "serialize", feature = "deserialize"))]
 extern crate serde;
 use std::convert::TryFrom;
 use std::fmt;
@@ -42,6 +42,7 @@ use network::{parse_address_type, parse_network_type};
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub enum SdpBandwidth {
     As(u32),
@@ -69,6 +70,7 @@ impl fmt::Display for SdpBandwidth {
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpConnection {
     pub address: ExplicitlyTypedAddress,
@@ -99,6 +101,7 @@ impl AnonymizingClone for SdpConnection {
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpOrigin {
     pub username: String,
@@ -137,6 +140,7 @@ impl AnonymizingClone for SdpOrigin {
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpTiming {
     pub start: u64,
@@ -150,6 +154,7 @@ impl fmt::Display for SdpTiming {
 }
 
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub enum SdpType {
     // Note: Email, Information, Key, Phone, Repeat, Uri and Zone are left out
@@ -165,6 +170,7 @@ pub enum SdpType {
 }
 
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpLine {
     pub line_number: usize,
@@ -191,6 +197,7 @@ pub struct SdpLine {
  */
 #[derive(Clone)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "enhanced_debug", derive(Debug))]
 pub struct SdpSession {
     pub version: u64,
@@ -201,6 +208,7 @@ pub struct SdpSession {
     pub timing: Option<SdpTiming>,
     pub attribute: Vec<SdpAttribute>,
     pub media: Vec<SdpMedia>,
+    #[cfg_attr(feature = "deserialize", serde(skip_deserializing))]
     pub warnings: Vec<SdpParserError>, // unsupported values:
                                        // information: Option<String>,
                                        // uri: Option<String>,

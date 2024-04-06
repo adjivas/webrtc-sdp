@@ -19,6 +19,7 @@ default = ["enhanced_debug"]
 enhanced_debug = []
 # serializability
 serialize = ["serde", "serde_derive"]
+deserialize = ["serde", "serde_derive"]
 
 [dependencies]
 log = {version = "0.4"}

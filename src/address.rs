@@ -12,6 +12,7 @@ use std::str::FromStr;
 
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 pub enum Address {
     Fqdn(String),
     Ip(IpAddr),
@@ -67,6 +68,7 @@ impl PartialEq for Address {
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 pub enum AddressType {
     IpV4 = 4,
     IpV6 = 6,
@@ -108,6 +110,7 @@ impl AddressTyped for IpAddr {
 
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
+#[cfg_attr(feature = "deserialize", derive(Deserialize))]
 pub enum ExplicitlyTypedAddress {
     Fqdn {
         address_type: AddressType,
